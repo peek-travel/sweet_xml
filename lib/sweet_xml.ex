@@ -201,6 +201,7 @@ defmodule SweetXml do
         ?I in modifiers -> :soft_integer
         ?f in modifiers -> :float
         ?F in modifiers -> :soft_float
+        ?b in modifiers -> :boolean
         :otherwise -> false
       end
     }
@@ -670,6 +671,8 @@ defmodule SweetXml do
    {float,_} = Float.parse(to_string(value))
    float
   end
+  defp to_cast('true', :boolean, _is_opt?), do: true
+  defp to_cast('false', :boolean, _is_opt?), do: false
   defp to_cast(value, :soft_string, is_opt?) do
     if String.Chars.impl_for(value) do
       to_string(value)
